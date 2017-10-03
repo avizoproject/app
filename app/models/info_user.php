@@ -91,6 +91,34 @@ function setFk_secteur($fk_secteur) {
     $this->fk_secteur = $fk_secteur;
 }
 
+function getUser($email_client)
+    {
+        include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+        
+        $internalAttributes = get_object_vars($this);
+        
+        $sql = "SELECT * FROM utilisateur u WHERE u.courriel = '". $email_client ."'";
+        
+        
+        
+        $result = $conn->query($sql);
+        
+        if ($result->num_rows > 0) {
+            $anObject = Array();
+            while ($row = $result->fetch_assoc()) {
+                foreach ($row as $aRowName => $aValue) {
+                    $anObject[$aRowName] = $aValue;
+                }
+                
+            }
+            
+            $conn->close();
+            return $anObject;
+        }
+        $conn->close();
+        return null;
+    }
+
 }
 
 ?>
