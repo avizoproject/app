@@ -67,11 +67,12 @@ if ($loginControl->getHs() == true) {
     $_SESSION['user']=$user;
     $_SESSION['admin'] = $user['fk_statut'];
     $_SESSION['email'] =$user['courriel'];
+    $_SESSION['loggedIn']=true;
     echo $_SESSION['admin'];
     if ($_SESSION['admin'] === 1)
-        echo "Id user admin :".$_SESSION['admin'];
+        header("Location: http://localhost/app/app/views/dashboard.php");
     else 
-        echo "id user non admin".$_SESSION['admin'] ;
+        header("Location: http://localhost/app/app/views/dashboard.php");
     exit();
 }
 else{
