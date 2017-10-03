@@ -17,6 +17,8 @@ class InfoReservation extends InfoModel
     protected $fk_vehicule = 0;
 
     protected $fk_utilisateur = 0;
+    
+    protected $statut = 0;
 
     function __construct()
     {}
@@ -42,6 +44,10 @@ function getFk_utilisateur() {
     return $this->fk_utilisateur;
 }
 
+function getFk_statut_reservation() {
+    return $this->fk_statut_reservation;
+}
+
 function setPk_reservation($pk_reservation) {
     $this->pk_reservation = $pk_reservation;
 }
@@ -60,6 +66,10 @@ function setFk_vehicule($fk_vehicule) {
 
 function setFk_utilisateur($fk_utilisateur) {
     $this->fk_utilisateur = $fk_utilisateur;
+}
+
+function setStatut($statut) {
+    $this->statut = $statut;
 }
 
 
