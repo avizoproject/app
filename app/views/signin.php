@@ -1,5 +1,14 @@
 <!doctype html>
 
+<?php
+    session_start();
+if (session_status() == true) {
+    $_SESSION["loggedIn"] = false;
+    session_unset();
+    session_destroy();
+}
+?>
+
 <head>
 	<meta charset="utf-8" />
 	<link rel="apple-touch-icon" sizes="76x76" href="../img/apple-icon.png" />
@@ -43,7 +52,7 @@
 
                 <br/>
 
-                <form class="form-horizontal">
+                <form class="form-horizontal" action="http://localhost/app/app/controllers/controller_login.php" method="post">
                     <fieldset>
                         <div class="">
                                                    
@@ -65,7 +74,6 @@
 
                 <section>
                     <p class="text-center"><a href="signin.html#/pages/forgot">Mot de passe oublié?</a></p>
-                    <p class="text-center text-muted text-small">Pas de compte? <br><a href="signin.html#/pages/signup">Envoyer un message à l'administrateur</a></p>
                 </section>
                 
             </div>
