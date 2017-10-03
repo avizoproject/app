@@ -2892,7 +2892,7 @@ fieldset[disabled] .form-group.is-focused .togglebutton label {
   border: 1px solid #FFF;
   right: 10px;
   font-size: 9px;
-  background: #f44336;
+  background: #00ABE3;
   color: #FFFFFF;
   min-width: 20px;
   padding: 0px 5px;
@@ -3690,7 +3690,7 @@ footer .btn {
   box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);
 }
 .card [data-background-color="blue"] {
-  background: linear-gradient(60deg, #26c6da, #00acc1);
+  background: linear-gradient(60deg, #1785AC, #1785AC);
   box-shadow: 0 12px 20px -10px rgba(0, 188, 212, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(0, 188, 212, 0.2);
 }
 .card [data-background-color="green"] {
