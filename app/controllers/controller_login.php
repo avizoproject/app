@@ -12,6 +12,7 @@
  *****************************************************************/
 require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_client.php';
 require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_user.php';
+require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_sector.php';
 // Start the session
 session_start();
 if(isset($_GET['erreur']))
@@ -26,6 +27,7 @@ class controller_login
 {
     private $infosLogin = array();
     private $InfosUtilisateur;
+    private $InfosSecteur;
     private $Handshake = false;
     private $allUsers = array();
     function __construct()
@@ -33,6 +35,7 @@ class controller_login
         $this->infosLogin[0] = isset($_POST['email']) ? $_POST['email'] : null;
         $this->infosLogin[1] = isset($_POST['password']) ? $_POST['password'] : null;
         $this->InfosUtilisateur = new infoUser();
+        $this->InfosSecteur = new InfoSector();
         $this->allUsers = $this->InfosUtilisateur->getListOfAllDBObjects();
        
     }
@@ -51,6 +54,10 @@ class controller_login
         return $this->InfosUtilisateur;
     }
     
+    function getInfos_Sector(){
+        return $this->InfosSecteur;
+    }
+    
     function getInfosLogin(){
         return $this->infosLogin;
     }
@@ -63,10 +70,13 @@ $loginControl = new controller_login();
 $loginControl->login();
 if ($loginControl->getHs() == true) {
     $user = $loginControl->getInfosUtilisateur()->getUser($loginControl->getInfosLogin()[0]);
+    $secteur = $loginControl->getInfos_Sector()->getObjectFromDB($user['fk_secteur']);
     $_SESSION['user']=array();
     $_SESSION['user']=$user;
+    $_SESSION['secteur']= $secteur['nom_secteur'];
     $_SESSION['admin'] = $user['fk_statut'];
     $_SESSION['email'] =$user['courriel'];
+    
     $_SESSION['loggedIn']=true;
     echo $_SESSION['admin'];
     if ($_SESSION['admin'] === 1)

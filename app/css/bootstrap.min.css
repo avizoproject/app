@@ -6646,6 +6646,14 @@ button.close {
     margin-right: auto;
     margin-left: auto
 }
+
+.float-none {
+    float:none;
+}
+
+.margin-button{
+    margin:5px;
+}
 .pull-right {
     float: right!important
 }

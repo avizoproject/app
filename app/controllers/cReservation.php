@@ -46,5 +46,8 @@
                         }
 		}
 	}
+        
+isset($_POST['selectReservation']) ? $_POST['selectReservation'] : null;
+isset($_POST['selectReservation']) ? $_POST['selectReservation'] : null;
 ?>
 

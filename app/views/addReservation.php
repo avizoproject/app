@@ -4,14 +4,14 @@
 		Authour : Jérémy Besserer-Lemay
 		Functionality : Page to modify a vehicule's reservation
 			Date: 2017-10-03
-
+			
 			Last modification:
 			2017-10-03     Jérémy Besserer-Lemay   1 Creation
  ******************************************************************/
 session_start();
 error_reporting(0);
-require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_reservation.php';
-$gReservation = new InfoReservation();
+require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_vehicule.php';
+$listVehicule = new InfoVehicule();
 ?>
 <html>
     <head>
@@ -19,9 +19,9 @@ $gReservation = new InfoReservation();
 	<link rel="apple-touch-icon" sizes="76x76" href="../img/apple-icon.png" />
 	<link rel="icon" type="image/png" href="../img/favicon.png" />
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-
+        
 	<title>Modification de reservation</title>
-
+        
 	<meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
         <meta name="viewport" content="width=device-width" />
 
@@ -38,13 +38,9 @@ $gReservation = new InfoReservation();
         <!--     Fonts and icons     -->
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-
-        <!--     Calendar     -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
-      	<link rel="stylesheet" href="../css/calendar.css"> <!-- Resource style -->
     </head>
     <body>
-
+        
 	<div class="wrapper">
 	    <div class="sidebar" data-color="purple" data-image="../img/sidebar-1.jpg">
 			<!--
@@ -156,119 +152,31 @@ $gReservation = new InfoReservation();
 	                <div class="row">
 	                    <div class="col-md-12">
 	                        <div class="card">
-	                            <div class="card-header" data-background-color="blue">
-	                                <h4 class="title">Simple Table</h4>
-	                                <p class="category">Here is a subtitle for this table</p>
-	                            </div>
-	                            <div class="card-content table-responsive">
-	                                <table class="table" id="example">
-	                                    <thead class="text-primary">
-	                                    	<th>ID Réservation</th>
-	                                    	<th>Vehicule</th>
-	                                    	<th>Réservé par</th>
-						<th>Date de début</th>
-                                                <th>Date de retour prévu</th>
-	                                    </thead>
-	                                    <tbody>
-                                                <?php $gReservation->getListReservations(); ?>
-	                                    </tbody>
-	                                </table>
-	                            </div>
+	                            
+	                            <?php $vehicules = $listVehicule->getListVehiculeSector($_SESSION['user']['fk_secteur']);?>
+                                    <?php echo '<select name="select">';
+                                        $arraySize=count($vehicules);
+                                        $start = 0 ;
+                                        while($start < $arraySize)
+                                        {
+                                            echo '<option value="'. $vehicules[$start]['nom_marque'] ." ". $vehicules[$start]['nom_modele'] . '">' 
+                                                . $vehicules[$start]['nom_marque']." ". $vehicules[$start]['nom_modele']
+                                                . '</option>';
+                                            $start++;
+                                        }
+                                    echo '</select>';
+                                    ?>
 	                        </div>
 	                    </div>
                             <div class="buttons">
                                 <div class="centerbuttons">
-                                    <button class="btn btn-default" name="Ajouter" id="Ajouter">Ajouter</button>
-                                    <button class="btn btn-default" name="Modifier" id="Modifier">Modifier</button>
-                                    <button class="btn btn-default" name="Consulter" id="Consulter">Consulter</button>
+                                    <button name="Ajouter" id="Ajouter">Ajouter</button>
+                                    <button name="Modifier" id="Modifier">Modifier</button>
+                                    <button name="Consulter" id="Consulter">Consulter</button>
                                 </div>
                             </div>
 	                </div>
 	            </div>
-              <div class="cd-schedule loading">
-              	<div class="timeline">
-              		<ul>
-              			<li><span>09:00</span></li>
-              			<li><span>09:30</span></li>
-              			<li><span>10:00</span></li>
-              			<li><span>10:30</span></li>
-              			<li><span>11:00</span></li>
-              			<li><span>11:30</span></li>
-              			<li><span>12:00</span></li>
-              			<li><span>12:30</span></li>
-              			<li><span>13:00</span></li>
-              			<li><span>13:30</span></li>
-              			<li><span>14:00</span></li>
-              			<li><span>14:30</span></li>
-              			<li><span>15:00</span></li>
-              			<li><span>15:30</span></li>
-              			<li><span>16:00</span></li>
-              			<li><span>16:30</span></li>
-              			<li><span>17:00</span></li>
-              			<li><span>17:30</span></li>
-              			<li><span>18:00</span></li>
-              		</ul>
-              	</div>
-
-              	<div class="events">
-              		<ul>
-              			<li class="events-group">
-              				<div class="top-info"><span>Lundi</span></div>
-              				<ul>
-              					<li class="single-event" data-start="10:00" data-end="12:30"  data-content="event-yoga-1" data-event="event-3">
-              						<a href="#0">
-              							<em class="event-name">Yoga Level 1</em>
-              						</a>
-              					</li>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mardi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mercredi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Jeudi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Vendredi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
-              		</ul>
-              	</div>
-
-              	<div class="event-modal">
-              		<header class="header">
-              			<div class="content">
-              				<span class="event-date"></span>
-              				<h3 class="event-name"></h3>
-              			</div>
-
-              			<div class="header-bg"></div>
-              		</header>
-
-              		<div class="body">
-              			<div class="event-info"></div>
-              			<div class="body-bg"></div>
-              		</div>
-
-              		<a href="#0" class="close">Close</a>
-              	</div>
-
-              	<div class="cover-layer"></div>
-              </div>
 	        </div>
 
 	        <footer class="footer">
@@ -302,13 +210,13 @@ $gReservation = new InfoReservation();
 	    </div>
 	</div>
     </body>
-
+    
     <!--   Core JS Files   -->
-
-
+    
+        
         <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
-        <script src="../js/jquery.dataTables.min.js"></script>
-
+        <script src="../js/jquery.dataTables.min.js"></script> 
+	
 	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../js/material.min.js" type="text/javascript"></script>
 
@@ -332,10 +240,10 @@ $gReservation = new InfoReservation();
 
 			// Javascript method's body can be found in assets/js/demos.js
         	demo.initDashboardPageCharts();
-
+                
                 var table = $('#example').DataTable();
-
-                //modifie les styles pour la sélection de rangée
+                
+                //modifie les styles pour la sélection de rangée 
                 $('#example tbody').on('click', 'tr', function () {
                     if ($(this).hasClass('selected')) {
                         $(this).removeClass('selected');
@@ -383,10 +291,4 @@ $gReservation = new InfoReservation();
 
     	});
 	</script>
-  <script src="../js/calendarModernizr.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-  <script>
-  	if( !window.jQuery ) document.write('<script src="js/jquery-3.0.0.min.js"><\/script>');
-  </script>
-  <script src="../js/calendarMain.js"></script> <!-- Resource jQuery -->
 </html>

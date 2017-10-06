@@ -4,6 +4,15 @@
     session_start();
 if (session_status() == true) {
     $_SESSION["loggedIn"] = false;
+    $_SESSION = array();
+    if (ini_get("session.use_cookies")) {
+        $params = session_get_cookie_params();
+        setcookie(session_name(), '', time() - 42000,
+            $params["path"], $params["domain"],
+            $params["secure"], $params["httponly"]
+            );
+    }
+    
     session_unset();
     session_destroy();
 }
@@ -81,6 +90,7 @@ if (session_status() == true) {
     </div>
 
 </div>
+ 
 </body>
 	<!--   Core JS Files   -->
 	<script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
