@@ -1,12 +1,12 @@
 <?php
 /****************************************************************
-		File : modifyReservation.php
-		Authour : Jérémy Besserer-Lemay
+		File : updateReservation.php
+		Author : Frédérick Morin
 		Functionality : Page to modify a vehicule's reservation
-			Date: 2017-10-03
+		Date: 2017-10-06
 
-			Last modification:
-			2017-10-03     Jérémy Besserer-Lemay   1 Creation
+		Last modification:
+		2017-10-06     Frédérick Morin   1 Creation
  ******************************************************************/
 session_start();
 error_reporting(0);
@@ -38,10 +38,6 @@ $gReservation = new InfoReservation();
         <!--     Fonts and icons     -->
         <link href="http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>
-
-        <!--     Calendar     -->
-        <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet">
-      	<link rel="stylesheet" href="../css/calendar.css"> <!-- Resource style -->
     </head>
     <body>
 
@@ -155,120 +151,36 @@ $gReservation = new InfoReservation();
 	            <div class="container-fluid">
 	                <div class="row">
 	                    <div class="col-md-12">
-	                        <div class="card">
-	                            <div class="card-header" data-background-color="blue">
-	                                <h4 class="title">Simple Table</h4>
-	                                <p class="category">Here is a subtitle for this table</p>
-	                            </div>
-	                            <div class="card-content table-responsive">
-	                                <table class="table" id="example">
-	                                    <thead class="text-primary">
-	                                    	<th>ID Réservation</th>
-	                                    	<th>Vehicule</th>
-	                                    	<th>Réservé par</th>
-						<th>Date de début</th>
-                                                <th>Date de retour prévu</th>
-	                                    </thead>
-	                                    <tbody>
-                                                <?php $gReservation->getListReservations(); ?>
-	                                    </tbody>
-	                                </table>
-	                            </div>
-	                        </div>
-	                    </div>
-                            <div class="buttons">
-                                <div class="centerbuttons">
-                                    <button name="Ajouter" id="Ajouter">Ajouter</button>
-                                    <button name="Modifier" id="Modifier">Modifier</button>
-                                    <button name="Consulter" id="Consulter">Consulter</button>
-                                </div>
-                            </div>
+                        <div class="card">
+                          <div class="card-header" data-background-color="blue">
+                              <h4 class="title">Modifier une réservation</h4>
+                          </div>
+                          <div class="card-content">
+                            Véhicule :
+                            <select style="float:right; margin-right: 60%; width: 250px;">
+                              <option value="1">Ford F-150 2016</option>
+                            </select>
+                            <br /><br />
+                            Utilisateur :
+                            <select style="float:right;  margin-right: 60%; width: 250px;">
+                              <option value="1">Michel Bolduc</option>
+                            </select>
+                            <br /><br /><br />
+                            Date de début :<span style="float:right; margin-right:69%;">Date de fin :</span><br />
+                            <input type="date" name="dateDebut"><input type="date" name="dateFin" style="float:right; margin-right:60%;">
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="buttons">
+                        <div class="centerbuttons">
+                            <button name="Ajouter" id="Ajouter">Ajouter</button>
+                            <button name="Modifier" id="Modifier">Modifier</button>
+                            <button name="Consulter" id="Consulter">Consulter</button>
+                        </div>
+                    </div>
 	                </div>
 	            </div>
-              <div class="cd-schedule loading">
-              	<div class="timeline">
-              		<ul>
-              			<li><span>09:00</span></li>
-              			<li><span>09:30</span></li>
-              			<li><span>10:00</span></li>
-              			<li><span>10:30</span></li>
-              			<li><span>11:00</span></li>
-              			<li><span>11:30</span></li>
-              			<li><span>12:00</span></li>
-              			<li><span>12:30</span></li>
-              			<li><span>13:00</span></li>
-              			<li><span>13:30</span></li>
-              			<li><span>14:00</span></li>
-              			<li><span>14:30</span></li>
-              			<li><span>15:00</span></li>
-              			<li><span>15:30</span></li>
-              			<li><span>16:00</span></li>
-              			<li><span>16:30</span></li>
-              			<li><span>17:00</span></li>
-              			<li><span>17:30</span></li>
-              			<li><span>18:00</span></li>
-              		</ul>
-              	</div>
-
-              	<div class="events">
-              		<ul>
-              			<li class="events-group">
-              				<div class="top-info"><span>Lundi</span></div>
-              				<ul>
-              					<li class="single-event" data-start="10:00" data-end="12:30"  data-content="event-yoga-1" data-event="event-3">
-              						<a href="#0">
-              							<em class="event-name">Yoga Level 1</em>
-              						</a>
-              					</li>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mardi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mercredi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Jeudi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Vendredi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
-              		</ul>
-              	</div>
-
-              	<div class="event-modal">
-              		<header class="header">
-              			<div class="content">
-              				<span class="event-date"></span>
-              				<h3 class="event-name"></h3>
-              			</div>
-
-              			<div class="header-bg"></div>
-              		</header>
-
-              		<div class="body">
-              			<div class="event-info"></div>
-              			<div class="body-bg"></div>
-              		</div>
-
-              		<a href="#0" class="close">Close</a>
-              	</div>
-
-              	<div class="cover-layer"></div>
-              </div>
 	        </div>
 
 	        <footer class="footer">
@@ -383,10 +295,4 @@ $gReservation = new InfoReservation();
 
     	});
 	</script>
-  <script src="../js/calendarModernizr.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
-  <script>
-  	if( !window.jQuery ) document.write('<script src="js/jquery-3.0.0.min.js"><\/script>');
-  </script>
-  <script src="../js/calendarMain.js"></script> <!-- Resource jQuery -->
 </html>
