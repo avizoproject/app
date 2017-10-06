@@ -131,6 +131,27 @@ function setFk_statut($fk_statut) {
     $this->fk_statut = $fk_statut;
 }
 
+function getListVehiculeSector ($user_sector){
+include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+    
+    $results = $conn->query('SELECT m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.fk_secteur=' .$user_sector. '');
+    
+    $allvehicule = array();
+    while ($row = $results->fetch_assoc()) {
+        $allvehicule[] = array(
+            'nom_marque' => $row['nom_marque'],
+            'nom_modele' => $row['nom_modele']
+        );
+    }  
+    
+    // Frees the memory associated with a result
+    $results->free();
+
+    // close connection
+    $conn->close();
+    
+    return $allvehicule;
+}
 
 }
 
