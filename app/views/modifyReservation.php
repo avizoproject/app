@@ -7,6 +7,9 @@
 
 			Last modification:
 			2017-10-03     Jérémy Besserer-Lemay   1 Creation
+      2017-10-06     Frédérick Morin         2 Ajout calendrier
+      2017-10-03     Frédérick Morin         3 Modification calendrier
+
  ******************************************************************/
 session_start();
 error_reporting(0);
@@ -188,64 +191,13 @@ $gReservation = new InfoReservation();
               <div class="cd-schedule loading">
               	<div class="timeline">
               		<ul>
-              			<li><span>09:00</span></li>
-              			<li><span>09:30</span></li>
-              			<li><span>10:00</span></li>
-              			<li><span>10:30</span></li>
-              			<li><span>11:00</span></li>
-              			<li><span>11:30</span></li>
-              			<li><span>12:00</span></li>
-              			<li><span>12:30</span></li>
-              			<li><span>13:00</span></li>
-              			<li><span>13:30</span></li>
-              			<li><span>14:00</span></li>
-              			<li><span>14:30</span></li>
-              			<li><span>15:00</span></li>
-              			<li><span>15:30</span></li>
-              			<li><span>16:00</span></li>
-              			<li><span>16:30</span></li>
-              			<li><span>17:00</span></li>
-              			<li><span>17:30</span></li>
-              			<li><span>18:00</span></li>
+                    <?php $gReservation->getReservationsNamesCalendar(); ?>
               		</ul>
               	</div>
 
               	<div class="events">
               		<ul>
-              			<li class="events-group">
-              				<div class="top-info"><span>Lundi</span></div>
-              				<ul>
-              					<li class="single-event" data-start="10:00" data-end="12:30"  data-content="event-yoga-1" data-event="event-3">
-              						<a href="#0">
-              							<em class="event-name">Yoga Level 1</em>
-              						</a>
-              					</li>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mardi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Mercredi</span></div>
-              				<ul>
-              				</ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Jeudi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
-
-              			<li class="events-group">
-              				<div class="top-info"><span>Vendredi</span></div>
-                      <ul>
-                      </ul>
-              			</li>
+                    <?php $gReservation->getReservationsCalendar(); ?>
               		</ul>
               	</div>
 

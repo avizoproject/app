@@ -157,9 +157,7 @@ $gReservation = new InfoReservation();
                           </div>
                           <div class="card-content">
                             Véhicule :
-                            <select style="float:right; margin-right: 60%; width: 250px;">
-                              <option value="1">Ford F-150 2016</option>
-                            </select>
+                            <?php $gReservation->getSelectReservations(1); ?>
                             <br /><br />
                             Utilisateur :
                             <select style="float:right;  margin-right: 60%; width: 250px;">

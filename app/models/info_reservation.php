@@ -17,7 +17,7 @@ class InfoReservation extends InfoModel
     protected $fk_vehicule = 0;
 
     protected $fk_utilisateur = 0;
-    
+
     protected $statut = 0;
 
     function __construct()
@@ -74,9 +74,9 @@ function setStatut($statut) {
 
 function getListReservations(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
-    
+
     $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
-    
+
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
         $allreservation[] = array(
@@ -103,23 +103,23 @@ function getListReservations(){
             echo $allreservation[$i]['date_debut'] . "</td>";
             echo "<td>";
             echo $allreservation[$i]['date_fin'] . "</td>";
-            
+
             echo "</tr>";
         }
     }
-    
+
     // Frees the memory associated with a result
     $results->free();
 
     // close connection
     $conn->close();
 }
-        
+
 function getSelectReservations($id_user){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
-    
+
     $results = $conn->query("SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.fk_utilisateur='" . $id_user . "'");
-    
+
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
         $allreservation[] = array(
@@ -136,7 +136,7 @@ function getSelectReservations($id_user){
         }
     }
     echo "</select>";
-    
+
     // Frees the memory associated with a result
     $results->free();
 
@@ -144,6 +144,112 @@ function getSelectReservations($id_user){
     $conn->close();
 }
 
+function getReservationsNamesCalendar(){
+    include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
+
+    $allreservation = array();
+    while ($row = $results->fetch_assoc()) {
+        $allreservation[] = array(
+            'pk_reservation' => $row['pk_reservation'],
+            'nom_marque' => $row['nom_marque'],
+            'nom_modele' => $row['nom_modele'],
+            'nom' => $row['nom'],
+            'prenom' => $row['prenom'],
+            'date_debut' => $row['date_debut'],
+            'date_fin' => $row['date_fin']
+        );
+    }
+    $size= sizeof($allreservation);
+    if($size != null){
+        for($i=0;$i<$size;$i++){
+          echo "<li><span>" . $allreservation[$i]['prenom'] . " ".$allreservation[$i]['nom'] . "</span></li>";
+        }
+    }
+
+    // Frees the memory associated with a result
+    $results->free();
+
+    // close connection
+    $conn->close();
+}
+
+function getReservationsCalendar(){
+    include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
+
+    $allreservation = array();
+    while ($row = $results->fetch_assoc()) {
+        $allreservation[] = array(
+            'pk_reservation' => $row['pk_reservation'],
+            'nom_marque' => $row['nom_marque'],
+            'nom_modele' => $row['nom_modele'],
+            'nom' => $row['nom'],
+            'prenom' => $row['prenom'],
+            'date_debut' => $row['date_debut'],
+            'date_fin' => $row['date_fin']
+        );
+    }
+    $size= sizeof($allreservation);
+    if($size != null){
+        for($i=0;$i<$size;$i++){
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Dimanche</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Lundi</span></div>';
+            echo '<ul>';
+              echo '<li class="single-event" data-start="14:00" data-end="14:30"  data-content="event-yoga-1" data-event="event-3">';
+                echo '<a href="#0">';
+                  echo '<em class="event-name">Yoga Level 1</em>';
+                echo '</a>';
+              echo '</li>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Mardi</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Mercredi</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Jeudi</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Vendredi</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+
+          echo '<li class="events-group">';
+            echo '<div class="top-info"><span>Samedi</span></div>';
+            echo '<ul>';
+            echo '</ul>';
+          echo '</li>';
+        }
+    }
+
+    // Frees the memory associated with a result
+    $results->free();
+
+    // close connection
+    $conn->close();
+}
 }
 
 ?>
