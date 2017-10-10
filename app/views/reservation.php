@@ -1,8 +1,25 @@
-<!doctype html>
-<html lang="en">
-<head>
-    	<title>Avizo - Réservations</title>
-        <?php 
+<?php
+/****************************************************************
+		File : modifyReservation.php
+		Authour : Jérémy Besserer-Lemay
+		Functionality : Page to modify a vehicule's reservation
+			Date: 2017-10-03
+
+			Last modification:
+			2017-10-03     Jérémy Besserer-Lemay   1 Creation
+      2017-10-06     Frédérick Morin         2 Ajout calendrier
+      2017-10-03     Frédérick Morin         3 Modification calendrier
+
+ ******************************************************************/
+session_start();
+error_reporting(0);
+require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_reservation.php';
+$gReservation = new InfoReservation();
+?>
+<html>
+    <head>
+          <title>Avizo - Gestionnaire de réservations</title>
+	<?php 
             require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/header.php';
             session_start();
             error_reporting(1);
@@ -13,12 +30,11 @@
 //                echo '</script>';
 //            }
             ?>
-</head>
-
-<body>
+    </head>
+    <body>
 
 	<div class="wrapper">
-	     <?php 
+	    <?php 
             require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/wrapper.php';
             ?>
 
@@ -27,134 +43,88 @@
                         require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/navigation.php';
                         ?>
 
-
 	        <div class="content">
 	            <div class="container-fluid">
 	                <div class="row">
-	                    <div class="col-md-8">
+	                    <div class="col-md-12">
 	                        <div class="card">
-	                            <div class="card-header" data-background-color="purple">
-	                                <h4 class="title">Edit Profile</h4>
-									<p class="category">Complete your profile</p>
+	                            <div class="card-header" data-background-color="blue">
+	                                <h4 class="title">Simple Table</h4>
+	                                <p class="category">Here is a subtitle for this table</p>
 	                            </div>
-	                            <div class="card-content">
-	                                <form>
-	                                    <div class="row">
-	                                        <div class="col-md-5">
-												<div class="form-group label-floating">
-													<label class="control-label">Company (disabled)</label>
-													<input type="text" class="form-control" disabled>
-												</div>
-	                                        </div>
-	                                        <div class="col-md-3">
-												<div class="form-group label-floating">
-													<label class="control-label">Username</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                        <div class="col-md-4">
-												<div class="form-group label-floating">
-													<label class="control-label">Email address</label>
-													<input type="email" class="form-control" >
-												</div>
-	                                        </div>
-	                                    </div>
-
-	                                    <div class="row">
-	                                        <div class="col-md-6">
-												<div class="form-group label-floating">
-													<label class="control-label">Fist Name</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                        <div class="col-md-6">
-												<div class="form-group label-floating">
-													<label class="control-label">Last Name</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                    </div>
-
-	                                    <div class="row">
-	                                        <div class="col-md-12">
-												<div class="form-group label-floating">
-													<label class="control-label">Adress</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                    </div>
-
-	                                    <div class="row">
-	                                        <div class="col-md-4">
-												<div class="form-group label-floating">
-													<label class="control-label">City</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                        <div class="col-md-4">
-												<div class="form-group label-floating">
-													<label class="control-label">Country</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                        <div class="col-md-4">
-												<div class="form-group label-floating">
-													<label class="control-label">Postal Code</label>
-													<input type="text" class="form-control" >
-												</div>
-	                                        </div>
-	                                    </div>
-
-	                                    <div class="row">
-	                                        <div class="col-md-12">
-	                                            <div class="form-group">
-	                                                <label>About Me</label>
-													<div class="form-group label-floating">
-									    				<label class="control-label"> Lamborghini Mercy, Your chick she so thirsty, I'm in that two seat Lambo.</label>
-								    					<textarea class="form-control" rows="5"></textarea>
-		                        					</div>
-	                                            </div>
-	                                        </div>
-	                                    </div>
-
-	                                    <button type="submit" class="btn btn-primary pull-right">Update Profile</button>
-	                                    <div class="clearfix"></div>
-	                                </form>
+	                            <div class="card-content table-responsive">
+	                                <table class="table" id="example">
+	                                    <thead class="text-primary">
+	                                    	<th>ID Réservation</th>
+	                                    	<th>Vehicule</th>
+	                                    	<th>Réservé par</th>
+						                    <th>Date de début</th>
+                                                <th>Date de retour prévu</th>
+	                                    </thead>
+	                                    <tbody>
+                                                <?php $gReservation->getListReservations(); ?>
+	                                    </tbody>
+	                                </table>
 	                            </div>
 	                        </div>
 	                    </div>
-						<div class="col-md-4">
-    						<div class="card card-profile">
-    							<div class="card-avatar">
-    								<a href="#pablo">
-    									<img class="img" src="../img/faces/marc.jpg" />
-    								</a>
-    							</div>
-
-    							<div class="content">
-    								<h6 class="category text-gray">CEO / Co-Founder</h6>
-    								<h4 class="card-title">Alec Thompson</h4>
-    								<p class="card-content">
-    									Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
-    								</p>
-    								<a href="#pablo" class="btn btn-primary btn-round">Follow</a>
-    							</div>
-    						</div>
-		    			</div>
+                            <div class="buttons">
+                                <div class="centerbuttons">
+                                    <button class="btn btn-default" name="Ajouter" id="Ajouter">Ajouter</button>
+                                    <button class="btn btn-default" name="Modifier" id="Modifier">Modifier</button>
+                                    <button class="btn btn-default" name="Consulter" id="Consulter">Consulter</button>
+                                </div>
+                            </div>
 	                </div>
 	            </div>
+              <div class="cd-schedule loading">
+              	<div class="timeline">
+              		<ul>
+                    <?php $gReservation->getReservationsNamesCalendar(); ?>
+              		</ul>
+              	</div>
+
+              	<div class="events">
+              		<ul>
+                    <?php $gReservation->getReservationsCalendar(); ?>
+              		</ul>
+              	</div>
+
+              	<div class="event-modal">
+              		<header class="header">
+              			<div class="content">
+              				<span class="event-date"></span>
+              				<h3 class="event-name"></h3>
+              			</div>
+
+              			<div class="header-bg"></div>
+              		</header>
+
+              		<div class="body">
+              			<div class="event-info"></div>
+              			<div class="body-bg"></div>
+              		</div>
+
+              		<a href="#0" class="close">Close</a>
+              	</div>
+
+              	<div class="cover-layer"></div>
+              </div>
 	        </div>
 
 	        <?php
 			require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/footer.php';
-                        ?>
+                ?>
 	    </div>
 	</div>
+    </body>
 
-</body>
+    <!--   Core JS Files   -->
 
-	<!--   Core JS Files   -->
-	<script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+
+        <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.dataTables.min.js"></script>
+
 	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="../js/material.min.js" type="text/javascript"></script>
 
@@ -172,16 +142,62 @@
 
 	<!-- Material Dashboard DEMO methods, don't include it in your project! -->
 	<script src="../js/demo.js"></script>
-        <script type="text/javascript">
-            
-            
-            
+
+	<script type="text/javascript">
     	$(document).ready(function(){
 
 			// Javascript method's body can be found in assets/js/demos.js
-        	
+        	demo.initDashboardPageCharts();
+
+                var table = $('#example').DataTable();
+
+                //modifie les styles pour la sélection de rangée
+                $('#example tbody').on('click', 'tr', function () {
+                    if ($(this).hasClass('selected')) {
+                        $(this).removeClass('selected');
+                    } else {
+                        table.$('tr.selected').removeClass('selected');
+                        $(this).addClass('selected');
+                    }
+                });
+
+                //clic modifier, envoie en get le id selectionné
+                $('#Modifier').click(function () {
+
+                    if ($('#example tr.selected td:first').length > 0) {
+                        var idcont = $('#example tr.selected td:first').html();
+                        window.location.href = "http://localhost/Presentation/VueModifierClient?client=" + idcont + "";
+                    }else{
+                        swal({
+                                title:"",
+                                text:"Vous devez sélectionner un client.",
+                                type:"warning",
+                                allowOutsideClick : true
+                            });
+                    }
+                });
+
+                //clic consulter, envoie en get le id selectionné
+                $('#Consulter').click(function () {
+                    if ($('#example tr.selected td:first').length > 0) {
+                        var idcons = $('#example tr.selected td:first').html();
+                        window.location.href = "http://localhost/Presentation/VueConsulterClient?client=" + idcons + "";
+                    }else{
+                        swal({
+                                title:"",
+                                text:"Vous devez sélectionner un client.",
+                                type:"warning",
+                                allowOutsideClick : true
+                            });
+                    }
+                });
+
+                //clic ajouter
+                $('#Ajouter').click(function () {
+                    window.location.href = "http://localhost/app/app/views/addReservation.php";
+                });
                 
-                var activePage = window.location.href;
+                 var activePage = window.location.href;
             	console.log(activePage);
                 var active = activePage.substring(activePage.lastIndexOf('/') + 1);
                 
@@ -199,8 +215,14 @@
                     }
                     
                 });
+                
                 $('.navbar-header a').html("Réservations");
+
     	});
 	</script>
-
+  <script src="../js/calendarModernizr.js"></script>
+  <script>
+  	if( !window.jQuery ) document.write('<script src="js/jquery-3.0.0.min.js"><\/script>');
+  </script>
+  <script src="../js/calendarMain.js"></script> <!-- Resource jQuery -->
 </html>

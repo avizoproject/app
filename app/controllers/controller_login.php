@@ -86,7 +86,7 @@ if ($loginControl->getHs() == true) {
     exit();
 }
 else{
-    header("Location: http://localhost/infoplusplus/Info++/index.php?erreur=1");
+    header("Location: http://localhost/app/app/views/signin.php");
     exit();
 }
 ?>

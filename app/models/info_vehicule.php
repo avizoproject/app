@@ -131,18 +131,27 @@ function setFk_statut($fk_statut) {
     $this->fk_statut = $fk_statut;
 }
 
-function getListVehiculeSector ($user_sector){
+function getListVehiculeSector ($user_sector, $datedebut, $datefin){
 include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+
+
+    $results = $conn->query("SELECT v.pk_vehicule, m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.pk_vehicule NOT IN (
+Select vehicule.pk_vehicule FROM vehicule 
+INNER JOIN reservation 
+ON vehicule.pk_vehicule = reservation.fk_vehicule 
+WHERE date_fin >= '" . $datedebut . "' 
+AND date_debut <= '" . $datefin . "'
+AND reservation.statut = '1')
+AND v.fk_secteur = '" . $user_sector . "'");
+
+    //$results = $conn->query('SELECT m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.fk_secteur=' .$user_sector. '');
     
-    $results = $conn->query('SELECT m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.fk_secteur=' .$user_sector. '');
-    
-    $allvehicule = array();
+
+
+    echo "<option value=''>Sélectionnez un véhicule...</option>";
     while ($row = $results->fetch_assoc()) {
-        $allvehicule[] = array(
-            'nom_marque' => $row['nom_marque'],
-            'nom_modele' => $row['nom_modele']
-        );
-    }  
+        echo "<option value=" . $row['pk_vehicule'] . ">" . $row['nom_marque'] . " " . $row['nom_modele'] . "</option>";
+    }
     
     // Frees the memory associated with a result
     $results->free();
@@ -150,7 +159,7 @@ include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
     // close connection
     $conn->close();
     
-    return $allvehicule;
+    //return $allvehicule;
 }
 
 }

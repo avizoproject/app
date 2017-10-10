@@ -17,7 +17,15 @@ echo "<meta charset='utf-8' />
 
     <!--  CSS for Demo Purpose, don't include it in your project     -->
     <link href='../css/demo.css' rel='stylesheet' />
+    
+    <!--  CSS for Demo Purpose, don't include it in your project     -->
+    <link rel='stylesheet' href='../css/table.css'>
+    <link rel='stylesheet' href='../css/flatpickr.css'>
 
+    <!--     Calendar     -->
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600' rel='stylesheet'>
+    <link rel='stylesheet' href='../css/calendar.css'> <!-- Resource style -->
+    
     <!--     Fonts and icons     -->
     <link href='http://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css' rel='stylesheet'>
     <link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300|Material+Icons' rel='stylesheet' type='text/css'>";
