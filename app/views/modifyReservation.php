@@ -169,7 +169,7 @@ $gReservation = new InfoReservation();
 	                                    	<th>ID Réservation</th>
 	                                    	<th>Vehicule</th>
 	                                    	<th>Réservé par</th>
-						<th>Date de début</th>
+						                    <th>Date de début</th>
                                                 <th>Date de retour prévu</th>
 	                                    </thead>
 	                                    <tbody>
@@ -336,7 +336,6 @@ $gReservation = new InfoReservation();
     	});
 	</script>
   <script src="../js/calendarModernizr.js"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
   <script>
   	if( !window.jQuery ) document.write('<script src="js/jquery-3.0.0.min.js"><\/script>');
   </script>
