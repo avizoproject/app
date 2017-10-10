@@ -30,7 +30,7 @@ class controller_reservation
         $this->arrayReservation[0] = isset($_GET['datedebut']) ? $_GET['datedebut'] : null;
         $this->arrayReservation[1] = isset($_GET['datefin']) ? $_GET['datefin'] : null;
         $this->arrayReservation[2] = isset($_GET['pkvehicule']) ? $_GET['pkvehicule'] : null;
-        $this->arrayReservation[3] = $_SESSION['user']['fk_secteur'];
+        $this->arrayReservation[3] = $_SESSION['user']['pk_utilisateur'];
         $this->InfosReservation = new InfoReservation();
         
     }
