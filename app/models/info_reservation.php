@@ -118,7 +118,7 @@ function getListReservations(){
 function getSelectReservations($id_user){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query("SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.fk_utilisateur='" . $id_user . "'");
+    $results = $conn->query("SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.fk_utilisateur='" . $id_user . "' AND reservation.statut = '1'");
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -164,7 +164,7 @@ function getReservationsNamesCalendar(){
     $size= sizeof($allreservation);
     if($size != null){
         for($i=0;$i<$size;$i++){
-          echo "<li><span>" . $allreservation[$i]['prenom'] . " ".$allreservation[$i]['nom'] . "</span></li>";
+          echo "<li><span>" . $allreservation[$i]['nom_marque'] . " ".$allreservation[$i]['nom_modele'] . "</span></li>";
         }
     }
 
@@ -193,54 +193,56 @@ function getReservationsCalendar(){
         );
     }
     $size= sizeof($allreservation);
+    $semaine = array();
+    $semaine[0]= date('Y-m-d',strtotime('last sunday'));
+    $semaine[1]= date('Y-m-d',strtotime('monday this week'));
+    $semaine[2]= date('Y-m-d',strtotime('tuesday this week'));
+    $semaine[3]= date('Y-m-d',strtotime('wednesday this week'));
+    $semaine[4]= date('Y-m-d',strtotime('thursday this week'));
+    $semaine[5]= date('Y-m-d',strtotime('friday this week'));
+    $semaine[6]= date('Y-m-d',strtotime('saturday this week'));
+
     if($size != null){
         for($i=0;$i<$size;$i++){
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Dimanche</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
+            $numberofDays = ceil(abs(strtotime($allreservation[$i]['date_fin']) - strtotime($allreservation[$i]['date_debut']))/ 86400);
+            $numberofDays = $numberofDays/2;
+            $counter = 0;
+            for($j=0;$j<7;$j++) {
+                if ($allreservation[$i]['date_debut']>= $semaine[$j] || $allreservation[$i]['date_fin']>= $semaine[$j]) {
+                    if($numberofDays == $counter){
+                        echo '<li class="events-group">';
+                        echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        echo '<ul>';
+                        echo '<li class="single-event" data-start="" data-end="" data-content="event-yoga-1" data-event="event-3">';
+                        echo '<a href="#0">';
+                        echo '<em class="event-name">'.$allreservation[$i]["prenom"].' '.$allreservation[$i]["nom"].'</em>';
+                        echo '</a>';
+                        echo '</li>';
+                        echo '</ul>';
+                        echo '</li>';
+                    }
+                    else{
+                        echo '<li class="events-group">';
+                        echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        echo '<ul>';
+                        echo '<li class="single-event" data-start=" " data-end=" " data-content="event-yoga-1" data-event="event-3">';
+                        echo '<a href="#0" disabled="disabled">';
+                        echo '<em class="event-name"> </em>';
+                        echo '</a>';
+                        echo '</li>';
+                        echo '</ul>';
+                        echo '</li>';
+                    }
+                    $counter++;
 
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Lundi</span></div>';
-            echo '<ul>';
-              echo '<li class="single-event" data-start="14:00" data-end="14:30"  data-content="event-yoga-1" data-event="event-3">';
-                echo '<a href="#0">';
-                  echo '<em class="event-name">Yoga Level 1</em>';
-                echo '</a>';
-              echo '</li>';
-            echo '</ul>';
-          echo '</li>';
-
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Mardi</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
-
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Mercredi</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
-
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Jeudi</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
-
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Vendredi</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
-
-          echo '<li class="events-group">';
-            echo '<div class="top-info"><span>Samedi</span></div>';
-            echo '<ul>';
-            echo '</ul>';
-          echo '</li>';
+                } else {
+                    echo '<li class="events-group">';
+                    echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                    echo '<ul>';
+                    echo '</ul>';
+                    echo '</li>';
+                }
+            }
         }
     }
 
@@ -251,5 +253,6 @@ function getReservationsCalendar(){
     $conn->close();
 }
 }
+
 
 ?>

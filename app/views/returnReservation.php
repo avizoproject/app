@@ -152,7 +152,7 @@ $gReservation = new InfoReservation();
 	                <div class="row">
 	                    <div class="col-md-12">
 	                        <div class="card">
-                                    <form action="../controllers/cReservation.php" method="post" enctype="multipart/form-data">
+                                    <form action="../controllers/cReservation.php?mod=3" method="post" enctype="multipart/form-data">
                                         <fieldset>
                                             <div class="col-md-6">
                                                 <label for='selectReservation'>

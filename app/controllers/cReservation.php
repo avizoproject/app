@@ -11,17 +11,18 @@
 ?>
 <?php
 	require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_reservation.php';
+	require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_vehicule.php';
 	
 	class cReservation{
 		private $infoReservation;
 		private $gReservation;
 		function __construct() {
-                        $this->gReservation = new InfoReservation();
+			$this->gReservation = new InfoReservation();
 			$this->infoReservation[0] = isset($_POST['fk_vehicule']) ? $_POST['fk_vehicule'] : null;
 			$this->infoReservation[1] = isset($_POST['fk_user']) ? $_POST['fk_user'] : null;
-                        $this->infoReservation[2] = isset($_POST['date_start']) ? $_POST['date_start'] : null;
+			$this->infoReservation[2] = isset($_POST['date_start']) ? $_POST['date_start'] : null;
 			$this->infoReservation[3] = isset($_POST['date_end']) ? $_POST['date_end'] : null;
-                        $this->infoReservation[4] = isset($_POST['status']) ? $_POST['status'] : null;
+			$this->infoReservation[4] = isset($_POST['status']) ? $_POST['status'] : null;
 		}
 		//Sends info for reservation in the BD
 		function updateReservation(){
@@ -49,5 +50,25 @@
         
 isset($_POST['selectReservation']) ? $_POST['selectReservation'] : null;
 isset($_POST['selectReservation']) ? $_POST['selectReservation'] : null;
+
+if(isset($_GET['mod'])==true){
+	if($_GET['mod']==3){
+		$reservation = new InfoReservation();
+		$vehicule = new InfoVehicule();
+
+		$result = $reservation->getObjectFromDB($_POST['selectReservation']);
+		$resultVehicule = $vehicule->getObjectFromDB($result['fk_vehicule']);
+
+		if($_POST['odometer'] >= $resultVehicule['odometre']){
+            $vehicule->updateObjectDynamically('odometre',$_POST['odometer'],$result['fk_vehicule']);
+
+            $reservation->updateObjectDynamically('statut','0',$_POST['selectReservation']);
+
+		}else{
+			//Error, the vehicule can't have a lower odometer than it did before.
+		}
+
+	}
+}
 ?>
 
