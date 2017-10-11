@@ -19,13 +19,13 @@ $gReservation = new InfoReservation();
 <html>
     <head>
           <title>Avizo - Gestionnaire de réservations</title>
-	<?php 
+	<?php
             require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/header.php';
             session_start();
             error_reporting(1);
 //            if($_SESSION['loggedIn']==false){
-//                echo '<script type="text/javascript">'; 
-//                echo 'alert("Vous n\'êtes pas connecté.");'; 
+//                echo '<script type="text/javascript">';
+//                echo 'alert("Vous n\'êtes pas connecté.");';
 //                echo 'window.location.href = "../views/signin.php";';
 //                echo '</script>';
 //            }
@@ -34,12 +34,12 @@ $gReservation = new InfoReservation();
     <body>
 
 	<div class="wrapper">
-	    <?php 
+	    <?php
             require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/wrapper.php';
             ?>
 
 	    <div class="main-panel">
-			<?php 
+			<?php
                         require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/navigation.php';
                         ?>
 
@@ -166,7 +166,7 @@ $gReservation = new InfoReservation();
 
                     if ($('#example tr.selected td:first').length > 0) {
                         var idcont = $('#example tr.selected td:first').html();
-                        window.location.href = "http://localhost/Presentation/VueModifierClient?client=" + idcont + "";
+                        window.location.href = "http://localhost/app/app/views/updateReservation.php?id=" + idcont + "";
                     }else{
                         swal({
                                 title:"",
@@ -181,7 +181,7 @@ $gReservation = new InfoReservation();
                 $('#Consulter').click(function () {
                     if ($('#example tr.selected td:first').length > 0) {
                         var idcons = $('#example tr.selected td:first').html();
-                        window.location.href = "http://localhost/Presentation/VueConsulterClient?client=" + idcons + "";
+                        window.location.href = "http://localhost/app/app/views/viewReservation.php?id=" + idcons + "";
                     }else{
                         swal({
                                 title:"",
@@ -196,26 +196,26 @@ $gReservation = new InfoReservation();
                 $('#Ajouter').click(function () {
                     window.location.href = "http://localhost/app/app/views/addReservation.php";
                 });
-                
+
                  var activePage = window.location.href;
             	console.log(activePage);
                 var active = activePage.substring(activePage.lastIndexOf('/') + 1);
-                
+
                 $('.sidebar-wrapper a').each(function () {
                     var linkPage = this.href;
 					console.log(linkPage);
                     if (activePage == linkPage) {
                         $(this).closest("li").addClass("active");
-                        $('li').each(function () {                       
+                        $('li').each(function () {
                     	//$(this).closest("a").removeClass("navigation1");
-                        
+
                         $(this).closest("li").removeClass("active");
                          });
                          $(this).closest("li").addClass("active");
                     }
-                    
+
                 });
-                
+
                 $('.navbar-header a').html("Réservations");
 
     	});

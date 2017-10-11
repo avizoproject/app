@@ -75,7 +75,7 @@ function setStatut($statut) {
 function getListReservations(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.statut = 1');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -252,7 +252,32 @@ function getReservationsCalendar(){
     // close connection
     $conn->close();
 }
+
+function getDatesReservation($id_reservation){
+    include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+
+    $results = $conn->query("SELECT * FROM reservation WHERE pk_reservation =" . $id_reservation . "");
+
+    $allreservation = array();
+    while ($row = $results->fetch_assoc()) {
+        $allreservation[] = array(
+            'date_debut' => $row['date_debut'],
+            'date_fin' => $row['date_fin']
+        );
+    }
+    $size= sizeof($allreservation);
+    if($size != null){
+      $debut = date_create($allreservation[0]['date_debut']);
+      $fin = date_create($allreservation[0]['date_fin']);
+      echo "['".date_format($debut,"Y/m/d")."', '".date_format($fin,"Y/m/d")."'],";
+    }
+
+    // Frees the memory associated with a result
+    $results->free();
+
+    // close connection
+    $conn->close();
 }
 
-
+}
 ?>

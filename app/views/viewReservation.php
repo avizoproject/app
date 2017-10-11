@@ -1,13 +1,12 @@
 <?php
 /****************************************************************
-		File : updateReservation.php
+		File : viewReservation.php
 		Author : Frédérick Morin
-		Functionality : Page to modify a vehicule's reservation
-		Date: 2017-10-06
+		Functionality : Page to view a vehicule's reservation
+		Date: 2017-10-11
 
 		Last modification:
-		2017-10-06     Frédérick Morin   1 Creation
-    2017-10-11     Frédérick Morin   2 Ajout PHP
+    2017-10-11     Frédérick Morin   1 Création
  ******************************************************************/
  session_start();
  error_reporting(0);
@@ -18,7 +17,7 @@
  ?>
  <html>
      <head>
-           <title>Avizo - Modification d'une réservation</title>
+           <title>Avizo - Consulter une réservation</title>
  	<?php
              require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/views/header.php';
              session_start();
@@ -49,8 +48,7 @@
                          <div class="col-md-8 center-block float-none">
                              <div class="card">
                                  <div class="card-header" data-background-color="blue">
-                                     <h4 class="title">Formulaire de modification</h4>
-                                     <p class="category">Tous les champs sont obligatoires.</p>
+                                     <h4 class="title">Consultation d'une réservation</h4>
                                  </div>
                                  <div class="card-content">
                                      <form id="formAjout" >
@@ -59,7 +57,7 @@
                                                  <div class="form-group label-static">
                                                      <label class="control-label">Dates</label>
 
-                                                     <input type='text' size="40" class="flatpickr form-control" data-enabletime=true data-enable-seconds=true name="date_acquisition" id='acquisition' placeholder="Choisissez la période de réservation">
+                                                     <input type='text' size="40" class="flatpickr form-control" data-enabletime=true data-enable-seconds=true name="date_acquisition" id='acquisition' placeholder="Choisissez la période de réservation" disabled>
 
                                                      <script src="../js/flatpickr.js" type="text/javascript"></script>
                                                      <script>
@@ -78,14 +76,13 @@
                                              <div class="col-md-4">
                                                  <div class="form-group label-static">
 
-                                                     <label class="control-label">Choisissez un véhicule</label>
-                                                     <select class="form-control" id="vehicule" name="select"><?php $listVehicule->getVehiculeReservation($_GET["id"]); ?></select>
+                                                     <label class="control-label">Véhicule</label>
+                                                     <select class="form-control" id="vehicule" name="select" disabled><?php $listVehicule->getVehiculeReservation($_GET["id"]); ?></select>
                                                  </div>
                                              </div>
 
                                          </div>
-                                         <input type="submit" id="confirmer" class="btn pull-right" value="Confirmer">
-                                         <input type="submit" id="supprimer" class="btn pull-right" value="Supprimer" style="margin-right: 10px;">
+                                         <input type="submit" id="modifier" class="btn pull-right" value="Modifier">
                                          <div class="clearfix"></div>
                                      </form>
                                  </div>
@@ -129,36 +126,13 @@
 
  	<script type="text/javascript">
      	$(document).ready(function(){
-
-             //si les dates sont changées, reload vehicules dispos
-             $("#acquisition").change(function () {
-                 var date = $("#acquisition").val();
-                 var deuxDates = date.split(' à ');
-                 var dateFrom = deuxDates[0];
-                 var dateTo = deuxDates[1];
-
-                 $("#vehicule").load("../controllers/getSelectVehicules.php?datefin=" + dateTo + "&datedebut=" + dateFrom);
-             });
-
-             $(document).on("click", "#confirmer", function(e) {
+             $(document).on("click", "#modifier", function(e) {
                  e.preventDefault();
-                 var date = $("#acquisition").val();
-                 var deuxDates = date.split(' à ');
-                 var dateFrom = deuxDates[0];
-                 var dateTo = deuxDates[1];
-
-                 var pkVehicule = $("#vehicule").val();
-
-                 location.href = "../controllers/controller_reservation.php?mod=1&id=<?php echo $_GET['id']; ?>&datefin=" + dateTo + "&datedebut=" + dateFrom + "&pkvehicule=" + pkVehicule;
+                 location.href = "http://localhost/app/app/views/updateReservation.php?id=<?php echo $_GET["id"]; ?>";
 
              });
 
-             $(document).on("click", "#supprimer", function(e) {
-                 e.preventDefault();
-                 location.href = "../controllers/controller_reservation.php?supp=1&id=<?php echo $_GET['id']; ?>";
-             });
-
-                 $('.navbar-header a').html("Modification de réservation");
+                 $('.navbar-header a').html("Consultation de réservation");
 
      	});
 
