@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 06, 2017 at 01:47 PM
+-- Generation Time: Oct 11, 2017 at 02:58 PM
 -- Server version: 5.7.14
--- PHP Version: 5.6.25
+-- PHP Version: 7.0.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -61,7 +61,8 @@ CREATE TABLE `couleur` (
 
 INSERT INTO `couleur` (`pk_couleur`, `nom`) VALUES
 (1, 'Blanc'),
-(2, 'Noir');
+(2, 'Noir'),
+(3, 'Gris');
 
 -- --------------------------------------------------------
 
@@ -175,7 +176,8 @@ CREATE TABLE `modele` (
 --
 
 INSERT INTO `modele` (`pk_modele`, `fk_marque`, `nom_modele`) VALUES
-(1, 10, 'F150');
+(1, 10, 'F150'),
+(2, 10, 'Ranger');
 
 -- --------------------------------------------------------
 
@@ -197,7 +199,8 @@ CREATE TABLE `reservation` (
 --
 
 INSERT INTO `reservation` (`pk_reservation`, `date_debut`, `date_fin`, `fk_vehicule`, `fk_utilisateur`, `statut`) VALUES
-(1, '2017-10-23', '2017-10-31', 2, 1, 0);
+(1, '2017-10-08', '2017-10-12', 2, 1, 1),
+(2, '2017-10-11', '2017-10-14', 13, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -328,7 +331,8 @@ CREATE TABLE `vehicule` (
 --
 
 INSERT INTO `vehicule` (`pk_vehicule`, `fk_marque`, `fk_modele`, `annee`, `fk_couleur`, `fk_secteur`, `odometre`, `plaque`, `photo`, `VIN`, `date_achat`, `fk_statut`) VALUES
-(2, 10, 1, 2006, 1, 1, 155000, '5TH6YU', NULL, 'GYHUSFHUFHUIE', '2017-10-09', 1);
+(2, 10, 1, 2006, 1, 1, 185000, '5TH6YU', NULL, 'GYHUSFHUFHUIE', '2017-10-09', 1),
+(13, 10, 2, 2007, 3, 1, 145000, 'J4H 4N5', NULL, 'SDDEFEF', '2017-08-01', 1);
 
 --
 -- Indexes for dumped tables
@@ -460,7 +464,7 @@ ALTER TABLE `alerte`
 -- AUTO_INCREMENT for table `couleur`
 --
 ALTER TABLE `couleur`
-  MODIFY `pk_couleur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pk_couleur` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `entretien`
 --
@@ -485,12 +489,12 @@ ALTER TABLE `marque`
 -- AUTO_INCREMENT for table `modele`
 --
 ALTER TABLE `modele`
-  MODIFY `pk_modele` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pk_modele` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- AUTO_INCREMENT for table `reservation`
 --
 ALTER TABLE `reservation`
-  MODIFY `pk_reservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `pk_reservation` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `secteur`
 --
@@ -520,7 +524,7 @@ ALTER TABLE `utilisateur`
 -- AUTO_INCREMENT for table `vehicule`
 --
 ALTER TABLE `vehicule`
-  MODIFY `pk_vehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `pk_vehicule` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 --
 -- Constraints for dumped tables
 --
