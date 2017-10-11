@@ -135,13 +135,12 @@ function getListVehiculeSector ($user_sector, $datedebut, $datefin){
 include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
 
-    $results = $conn->query("SELECT v.pk_vehicule, m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.pk_vehicule NOT IN (
-Select vehicule.pk_vehicule FROM vehicule 
-INNER JOIN reservation 
-ON vehicule.pk_vehicule = reservation.fk_vehicule 
+    $results = $conn->query("SELECT v.pk_vehicule, m.nom_marque, o.nom_modele FROM vehicule v LEFT JOIN marque m ON v.fk_marque=m.pk_marque LEFT JOIN modele o ON o.pk_modele = v.fk_modele WHERE v.pk_vehicule NOT IN 
+( Select vehicule.pk_vehicule 
+FROM vehicule INNER JOIN reservation ON vehicule.pk_vehicule = reservation.fk_vehicule 
 WHERE date_fin >= '" . $datedebut . "' 
-AND date_debut <= '" . $datefin . "'
-AND reservation.statut = '1')
+AND date_debut <= '" . $datefin . "' 
+AND reservation.statut = '1') 
 AND v.fk_secteur = '" . $user_sector . "'");
 
     //$results = $conn->query('SELECT m.nom_marque, o.nom_modele FROM modele o INNER JOIN marque m ON o.fk_marque=m.pk_marque INNER JOIN vehicule v ON m.pk_marque = v.fk_marque WHERE v.fk_secteur=' .$user_sector. '');
