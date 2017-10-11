@@ -107,6 +107,7 @@ Main Components
 }
 
 .cd-schedule .events {
+  float: right;
   position: relative;
   z-index: 1;
 }

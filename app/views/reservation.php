@@ -78,7 +78,7 @@ $gReservation = new InfoReservation();
 	                </div>
 	            </div>
               <div class="cd-schedule loading">
-              	<div class="timeline">
+              	<div style="float: left; position: relative;">
               		<ul>
                     <?php $gReservation->getReservationsNamesCalendar(); ?>
               		</ul>

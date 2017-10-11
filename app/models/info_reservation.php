@@ -147,7 +147,7 @@ function getSelectReservations($id_user){
 function getReservationsNamesCalendar(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE (WEEKOFYEAR(reservation.date_debut)=WEEKOFYEAR(NOW()) OR WEEKOFYEAR(reservation.date_fin)=WEEKOFYEAR(NOW())) AND reservation.statut = 1');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -211,7 +211,7 @@ function getReservationsCalendar(){
                 if ($allreservation[$i]['date_debut']>= $semaine[$j] || $allreservation[$i]['date_fin']>= $semaine[$j]) {
                     if($numberofDays == $counter){
                         echo '<li class="events-group">';
-                        echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                         echo '<ul>';
                         echo '<li class="single-event" data-start="" data-end="" data-content="event-yoga-1" data-event="event-3">';
                         echo '<a href="#0">';
@@ -223,7 +223,7 @@ function getReservationsCalendar(){
                     }
                     else{
                         echo '<li class="events-group">';
-                        echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                         echo '<ul>';
                         echo '<li class="single-event" data-start=" " data-end=" " data-content="event-yoga-1" data-event="event-3">';
                         echo '<a href="#0" disabled="disabled">';
@@ -237,7 +237,7 @@ function getReservationsCalendar(){
 
                 } else {
                     echo '<li class="events-group">';
-                    echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                    if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                     echo '<ul>';
                     echo '</ul>';
                     echo '</li>';
