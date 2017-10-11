@@ -2,3 +2,4 @@
 app/controllers/moteurBD.php
 nbproject/private/private.properties
 nbproject/private/private.xml
+app/models/info_vehicule.php
