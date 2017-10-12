@@ -60,7 +60,7 @@ class InfoModel
             echo "success";           
             return  $conn->insert_id;
             
-            // ////////////////////////////////////TEST LINE BELOW BIATCH retour de primary key gï¿½nï¿½rï¿½
+            // ////////////////////////////////////TEST LINE BELOW BIATCH retour de primary key généré
            
         }
         
@@ -76,27 +76,13 @@ class InfoModel
         $sets = "SET ";
         
         $lastElement = end($internalAttributes);
-        $lastRow = "";
-        //echo "last: " . $lastElement . "<br>";
-
-        //This loop is to fix same value in the last 2 elements or any field, aka if lastElement = 1 and an element before equals 1, it stops there.
-        foreach ($internalAttributes as $rowName => $value) {
-
-            if ($value != $this->table_name && $value != $this->primary_key && $rowName != $this->primary_key) {
-
-                $lastRow = $rowName;
-
-                //echo "last row: " . $lastRow . "<br>";
-
-            }
-        }
         foreach ($internalAttributes as $rowName => $value) {
             
             if ($value != $this->table_name && $value != $this->primary_key && $rowName != $this->primary_key) {
-
+                
                 $sets .= "  `" . $rowName . "` = " . "'" . $value . "'";
-
-                if ($value != $lastElement || $lastRow != $rowName) {
+                
+                if ($value != $lastElement) {
                     $sets .= ", ";
                 }
             }
@@ -106,10 +92,10 @@ class InfoModel
         
         $sql = $definition . $sets . $condition;
         
-        echo "<br>" . $sql;
+        //echo "<br>" . $sql;
         
         include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
-
+        
         if ($conn->query($sql) === TRUE) {
             echo "success";
             return  $conn->insert_id;

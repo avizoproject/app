@@ -49,7 +49,7 @@ $gReservation = new InfoReservation();
 	                    <div class="col-md-12">
 	                        <div class="card">
 	                            <div class="card-header" data-background-color="blue">
-	                                <h4 class="title">Réservations</h4>
+	                                <h4 class="title">Mes réservations</h4>
 	                                <p class="category">Sélectionnez avant de choisir une action</p>
 	                            </div>
 	                            <div class="card-content table-responsive">
@@ -69,8 +69,8 @@ $gReservation = new InfoReservation();
 	                            </div>
 	                        </div>
 	                    </div>
-                            <div class="">
-                                <div class="margin-button2">
+                            <div class="buttons">
+                                <div class="centerbuttons">
                                     <button class="btn btn-default" name="Ajouter" id="Ajouter">Ajouter</button>
                                     <button class="btn btn-default" name="Modifier" id="Modifier">Modifier</button>
                                     <button class="btn btn-default" name="Consulter" id="Consulter">Consulter</button>

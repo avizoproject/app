@@ -7,8 +7,8 @@ table.dataTable
     width:100%;
     margin:0 auto;
     clear:both;
-    border-collapse:separate;
-    border-spacing:0
+
+    border-spacing:0;
 }
 
 table.dataTable thead th,table.dataTable tfoot th
@@ -62,17 +62,17 @@ table.dataTable thead .sorting,table.dataTable thead .sorting_asc,table.dataTabl
 
 table.dataTable thead .sorting
 {
-    background-image:url("../images/sort_both.png")
+    background-image:url("../img/sort_both.png")
 }
 
 table.dataTable thead .sorting_asc
 {
-    background-image:url("../images/sort_asc.png")
+    background-image:url("../img/sort_asc.png")
 }
 
 table.dataTable thead .sorting_desc
 {
-    background-image:url("../images/sort_desc.png")
+    background-image:url("../img/sort_desc.png")
 }
 
 table.dataTable thead .sorting_asc_disabled
@@ -99,6 +99,14 @@ table.dataTable tbody tr.selected
 table.dataTable tbody tr td:last-child
 {
      border-right:1px solid #CDCDCD;
+}
+
+table.dataTable tbody tr td:nth-child(2) {
+    border-left: 1px solid #CDCDCD;
+}
+
+table.dataTable tbody tr:last-child {
+    border-bottom: 1px solid #CDCDCD;
 }
 
 table.dataTable tbody th,table.dataTable tbody td

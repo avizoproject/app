@@ -45,7 +45,7 @@ function getFk_utilisateur() {
 }
 
 function getFk_statut_reservation() {
-    return $this->statut;
+    return $this->fk_statut_reservation;
 }
 
 function setPk_reservation($pk_reservation) {
@@ -75,7 +75,7 @@ function setStatut($statut) {
 function getListReservations(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.statut = 1');
+    $results = $conn->query('SELECT reservation.statut, reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -86,14 +86,15 @@ function getListReservations(){
             'nom' => $row['nom'],
             'prenom' => $row['prenom'],
             'date_debut' => $row['date_debut'],
-            'date_fin' => $row['date_fin']
+            'date_fin' => $row['date_fin'],
+            'statut' => $row['statut']
         );
     }
     $size= sizeof($allreservation);
     if($size != null){
         for($i=0;$i<$size;$i++){
             echo "<tr class=''>";
-            echo "<td>";
+            echo "<td class='hidden'>";
             echo $allreservation[$i]['pk_reservation'] . "</td>";
             echo "<td>";
             echo $allreservation[$i]['nom_marque'] . " ".$allreservation[$i]['nom_modele']."</td>";
@@ -103,7 +104,8 @@ function getListReservations(){
             echo $allreservation[$i]['date_debut'] . "</td>";
             echo "<td>";
             echo $allreservation[$i]['date_fin'] . "</td>";
-
+            echo "<td>";
+            echo $allreservation[$i]['statut'] . "</td>";
             echo "</tr>";
         }
     }
@@ -278,10 +280,6 @@ function getDatesReservation($id_reservation){
     // close connection
     $conn->close();
 }
-
-/*function updateReservation(){
-    UPDATE `reservation` SET `date_debut` = '2017-10-12', `date_fin` = '2017-10-14', `fk_vehicule` = '13', `fk_utilisateur` = '1' `statut` = '1' WHERE `reservation`.`pk_reservation` = 2fail
-}*/
 
 }
 ?>

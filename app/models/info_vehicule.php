@@ -145,7 +145,7 @@ AND v.fk_secteur = '" . $user_sector . "'");
 
 
 
-    echo "<option value=''>Sélectionnez un véhicule...</option>";
+
     while ($row = $results->fetch_assoc()) {
         echo "<option value=" . $row['pk_vehicule'] . ">" . $row['nom_marque'] . " " . $row['nom_modele'] . "</option>";
     }
@@ -158,34 +158,6 @@ AND v.fk_secteur = '" . $user_sector . "'");
 
     //return $allvehicule;
 }
-    function getListVehiculeSectorModif ($idReservation,$user_sector, $datedebut, $datefin){
-        include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
-
-
-        $results = $conn->query("SELECT v.pk_vehicule, m.nom_marque, o.nom_modele FROM vehicule v LEFT JOIN marque m ON v.fk_marque=m.pk_marque LEFT JOIN modele o ON o.pk_modele = v.fk_modele WHERE v.pk_vehicule NOT IN 
-        ( Select vehicule.pk_vehicule 
-        FROM vehicule INNER JOIN reservation ON vehicule.pk_vehicule = reservation.fk_vehicule 
-        WHERE date_fin >= '" . $datedebut . "' 
-        AND date_debut <= '" . $datefin . "' 
-        AND reservation.statut = '1'
-        AND reservation.pk_reservation != '".$idReservation."')
-        AND v.fk_secteur = '" . $user_sector . "'");
-
-
-
-        echo "<option value=''>Sélectionnez un véhicule...</option>";
-        while ($row = $results->fetch_assoc()) {
-            echo "<option value=" . $row['pk_vehicule'] . ">" . $row['nom_marque'] . " " . $row['nom_modele'] . "</option>";
-        }
-
-        // Frees the memory associated with a result
-        $results->free();
-
-        // close connection
-        $conn->close();
-
-        //return $allvehicule;
-    }
 
 function getVehiculeReservation ($id_reservation){
   include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';

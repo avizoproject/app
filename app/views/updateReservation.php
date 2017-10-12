@@ -54,7 +54,6 @@
                                  </div>
                                  <div class="card-content">
                                      <form id="formAjout" >
-
                                          <div class="row">
                                              <div class="col-md-3">
                                                  <div class="form-group label-static">
@@ -66,8 +65,12 @@
                                                      <script>
                                                          flatpickr(".selector", {});
                                                          document.getElementById("acquisition").flatpickr({
+
+
                                                              defaultDate: <?php $gReservation->getDatesReservation($_GET["id"]); ?>
                                                              mode: "range"
+
+
                                                          });
                                                      </script>
                                                  </div>
@@ -85,8 +88,10 @@
                                              </div>
 
                                          </div>
+
                                          <input type="submit" id="confirmer" class="btn pull-right" value="Confirmer">
                                          <input type="submit" id="supprimer" class="btn pull-right" value="Supprimer" style="margin-right: 10px;">
+                                         <input type="submit" id="cancel" class="btn pull-right" value="Annuler" style="margin-right: 10px;">
                                          <div class="clearfix"></div>
                                      </form>
                                  </div>
@@ -108,7 +113,7 @@
 
 
          <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
-     <script src="../js/jquery.dataTables.min.js"></script>
+         <script src="../js/jquery.dataTables.min.js"></script>
 
  	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
  	<script src="../js/material.min.js" type="text/javascript"></script>
@@ -138,7 +143,7 @@
                  var dateFrom = deuxDates[0];
                  var dateTo = deuxDates[1];
 
-                 $("#vehicule").load("../controllers/getSelectVehicules.php?id=<?php echo $_GET['id']; ?>&datefin=" + dateTo + "&datedebut=" + dateFrom);
+                 $("#vehicule").load("../controllers/getSelectVehicules.php?datefin=" + dateTo + "&datedebut=" + dateFrom);
              });
 
              $(document).on("click", "#confirmer", function(e) {
@@ -159,9 +164,18 @@
                  location.href = "../controllers/controller_reservation.php?supp=1&id=<?php echo $_GET['id']; ?>";
              });
 
+            $(document).on("click", "#cancel", function(e) {
+                e.preventDefault();
+                location.href = "../views/reservation.php";
+            });
+
                  $('.navbar-header a').html("Modification de réservation");
 
      	});
+
+
+
+
  	</script>
    <script src="../js/calendarModernizr.js"></script>
    <script>

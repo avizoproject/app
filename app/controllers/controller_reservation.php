@@ -15,6 +15,11 @@ session_start();
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_reservation.php';
 
+
+
+/**
+ * Description of
+ */
 class controller_reservation
 {
     private $arrayReservation = array();
@@ -25,7 +30,13 @@ class controller_reservation
         $this->arrayReservation[0] = isset($_GET['datedebut']) ? $_GET['datedebut'] : null;
         $this->arrayReservation[1] = isset($_GET['datefin']) ? $_GET['datefin'] : null;
         $this->arrayReservation[2] = isset($_GET['pkvehicule']) ? $_GET['pkvehicule'] : null;
-        $this->arrayReservation[3] = $_SESSION['user']['pk_utilisateur'];
+
+        if (isset($_GET['admin'])==1) {
+            $this->arrayReservation[3] = $_GET['user'];
+
+        }else{
+            $this->arrayReservation[3] = $_SESSION['user']['pk_utilisateur'];
+        }
         $this->InfosReservation = new InfoReservation();
 
     }
@@ -69,15 +80,18 @@ $reservControl = new controller_reservation();
 if (isset($_GET['ajout'])) {
   $reservControl->ajoutReservation();
 } elseif (isset($_GET['mod'])) {
-  $reservControl->modReservation((int)$_GET['id']);
+  $reservControl->modReservation($_GET['id']);
 } elseif (isset($_GET['supp'])) {
   $reservControl->suppReservation($_GET['id']);
+} elseif (isset($_GET['admin'])&&isset($_GET['ajout'])){
+    $reservControl->ajoutReservationAdmin();
 }
 
     if ($_SESSION['admin'] === 1)
         header("Location: http://localhost/app/app/views/reservation.php");
-    else {
+    else{
         header("Location: http://localhost/app/app/views/reservation.php");
-        exit();
+    exit();
+}
 
-    }
+?>

@@ -119,6 +119,28 @@ function getUser($email_client)
         return null;
     }
 
+    function getListUsers (){
+        include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
+
+
+        $results = $conn->query("SELECT fk_secteur, pk_utilisateur, nom, prenom FROM utilisateur ORDER BY nom");
+
+
+
+
+        while ($row = $results->fetch_assoc()) {
+            echo "<option value='" . $row['fk_secteur'] . " " . $row['pk_utilisateur'] . "'>" . $row['nom'] . " " . $row['prenom'] . "</option>";
+        }
+
+        // Frees the memory associated with a result
+        $results->free();
+
+        // close connection
+        $conn->close();
+
+        //return $allvehicule;
+    }
+
 }
 
 ?>
