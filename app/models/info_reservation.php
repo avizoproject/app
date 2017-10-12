@@ -149,7 +149,7 @@ function getSelectReservations($id_user){
 function getReservationsNamesCalendar(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE (WEEKOFYEAR(reservation.date_debut)=WEEKOFYEAR(NOW()) OR WEEKOFYEAR(reservation.date_fin)=WEEKOFYEAR(NOW())) AND reservation.statut = 1');
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE (WEEKOFYEAR(reservation.date_debut)=WEEKOFYEAR(NOW()) OR WEEKOFYEAR(reservation.date_fin)=WEEKOFYEAR(NOW())) AND reservation.statut = 1 GROUP BY reservation.fk_vehicule');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -180,7 +180,7 @@ function getReservationsNamesCalendar(){
 function getReservationsCalendar(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
+    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE (WEEKOFYEAR(reservation.date_debut)=WEEKOFYEAR(NOW()) OR WEEKOFYEAR(reservation.date_fin)=WEEKOFYEAR(NOW())) AND reservation.statut = 1 ORDER BY reservation.fk_vehicule ASC, reservation.date_debut ASC');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -205,19 +205,21 @@ function getReservationsCalendar(){
     $semaine[6]= date('Y-m-d',strtotime('saturday this week'));
 
     if($size != null){
+      $jCounter = 0;
+      $linesCounter = 0;
         for($i=0;$i<$size;$i++){
             $numberofDays = ceil(abs(strtotime($allreservation[$i]['date_fin']) - strtotime($allreservation[$i]['date_debut']))/ 86400);
             $numberofDays = $numberofDays/2;
             $counter = 0;
-            for($j=0;$j<7;$j++) {
-                if ($allreservation[$i]['date_debut']>= $semaine[$j] || $allreservation[$i]['date_fin']>= $semaine[$j]) {
+            for($j=$jCounter;$j<7;$j++) {
+                if ($semaine[$j] >= $allreservation[$i]['date_debut'] && $semaine[$j] <= $allreservation[$i]['date_fin']) {
                     if($numberofDays == $counter){
                         echo '<li class="events-group">';
-                        if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        if ($linesCounter < 7) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                         echo '<ul>';
-                        echo '<li class="single-event" data-start="" data-end="" data-content="event-yoga-1" data-event="event-3">';
+                        echo '<li class="single-event" data-start="" data-end="" data-content="modal" data-event="event-1">';
                         echo '<a href="#0">';
-                        echo '<em class="event-name">'.$allreservation[$i]["prenom"].' '.$allreservation[$i]["nom"].'</em>';
+                        echo '<em id="'.$allreservation[$i]['pk_reservation'].'" class="event-name">'.$allreservation[$i]["prenom"].' '.$allreservation[$i]["nom"].'</em>';
                         echo '</a>';
                         echo '</li>';
                         echo '</ul>';
@@ -225,26 +227,37 @@ function getReservationsCalendar(){
                     }
                     else{
                         echo '<li class="events-group">';
-                        if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                        if ($linesCounter < 7) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                         echo '<ul>';
-                        echo '<li class="single-event" data-start=" " data-end=" " data-content="event-yoga-1" data-event="event-3">';
+                        echo '<li class="single-event" data-start="" data-end="" data-content="modal" data-event="event-1">';
                         echo '<a href="#0" disabled="disabled">';
-                        echo '<em class="event-name"> </em>';
+                        echo '<em id="'.$allreservation[$i]['pk_reservation'].'" class="event-name">'.$allreservation[$i]["prenom"].' '.$allreservation[$i]["nom"].'</em>';
                         echo '</a>';
                         echo '</li>';
                         echo '</ul>';
                         echo '</li>';
+                        if ($semaine[$j] == $allreservation[$i]['date_fin']) { $jCounter = $j + 1; $j = 10; }
                     }
                     $counter++;
 
                 } else {
                     echo '<li class="events-group">';
-                    if ($i == 0) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+                    if ($linesCounter < 7) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
                     echo '<ul>';
                     echo '</ul>';
                     echo '</li>';
                 }
+                $linesCounter++;
+                if ($j == 6) { $jCounter = 0; }
             }
+        }
+        while ($linesCounter % 7) {
+          echo '<li class="events-group">';
+          if ($linesCounter < 7) echo '<div class="top-info"><span>' . $semaine[$j] . '</span></div>';
+          echo '<ul>';
+          echo '</ul>';
+          echo '</li>';
+          $linesCounter++;
         }
     }
 

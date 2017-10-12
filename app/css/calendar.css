@@ -107,6 +107,7 @@ Main Components
 }
 
 .cd-schedule .events {
+  display: inline-block;
   float: right;
   position: relative;
   z-index: 1;
@@ -154,7 +155,7 @@ Main Components
   -ms-flex-negative: 0;
       flex-shrink: 0;
   float: left;
-  height: 150px;
+  height: 100px;
   width: 70%;
   max-width: 300px;
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.2);
@@ -181,8 +182,7 @@ Main Components
 
 @media only screen and (min-width: 800px) {
   .cd-schedule .events {
-    float: left;
-    width: 100%;
+    float: right;
   }
   .cd-schedule .events .events-group {
     width: 14.2857%;
@@ -191,9 +191,7 @@ Main Components
     /* reset style */
     margin-bottom: 0;
   }
-  .cd-schedule .events .events-group:not(:first-of-type) {
-    border-left-width: 0;
-  }
+
   .cd-schedule .events .top-info {
     /* vertically center its content */
     display: table;
@@ -238,7 +236,6 @@ Main Components
     /* reset style */
     -ms-flex-negative: 1;
         flex-shrink: 1;
-    height: auto;
     max-width: none;
     margin-right: 0;
   }
@@ -258,8 +255,7 @@ Main Components
 @media only screen and (min-width: 1000px) {
   .cd-schedule .events {
     /* 60px is the .timeline element width */
-    width: calc(100% - 60px);
-    margin-left: 100px;
+    width: 92%;
   }
 }
 
@@ -303,7 +299,7 @@ Main Components
 .cd-schedule .single-event[data-event="event-1"],
 .cd-schedule [data-event="event-1"] .header-bg {
   /* this is used to set a background color for the event and the modal window */
-  background: #577F92;
+  background: #1785AC;
 }
 
 .cd-schedule .single-event[data-event="event-1"]:hover {
