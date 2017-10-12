@@ -15,11 +15,6 @@ session_start();
 
 require_once $_SERVER["DOCUMENT_ROOT"] . '/app/app/models/info_reservation.php';
 
-
-
-/**
- * Description of
- */
 class controller_reservation
 {
     private $arrayReservation = array();
@@ -74,16 +69,15 @@ $reservControl = new controller_reservation();
 if (isset($_GET['ajout'])) {
   $reservControl->ajoutReservation();
 } elseif (isset($_GET['mod'])) {
-  $reservControl->modReservation($_GET['id']);
+  $reservControl->modReservation((int)$_GET['id']);
 } elseif (isset($_GET['supp'])) {
   $reservControl->suppReservation($_GET['id']);
 }
 
     if ($_SESSION['admin'] === 1)
         header("Location: http://localhost/app/app/views/reservation.php");
-    else{
+    else {
         header("Location: http://localhost/app/app/views/reservation.php");
-    exit();
-}
+        exit();
 
-?>
+    }

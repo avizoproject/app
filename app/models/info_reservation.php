@@ -45,7 +45,7 @@ function getFk_utilisateur() {
 }
 
 function getFk_statut_reservation() {
-    return $this->fk_statut_reservation;
+    return $this->statut;
 }
 
 function setPk_reservation($pk_reservation) {
@@ -278,6 +278,10 @@ function getDatesReservation($id_reservation){
     // close connection
     $conn->close();
 }
+
+/*function updateReservation(){
+    UPDATE `reservation` SET `date_debut` = '2017-10-12', `date_fin` = '2017-10-14', `fk_vehicule` = '13', `fk_utilisateur` = '1' `statut` = '1' WHERE `reservation`.`pk_reservation` = 2fail
+}*/
 
 }
 ?>

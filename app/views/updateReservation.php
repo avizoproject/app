@@ -54,6 +54,7 @@
                                  </div>
                                  <div class="card-content">
                                      <form id="formAjout" >
+
                                          <div class="row">
                                              <div class="col-md-3">
                                                  <div class="form-group label-static">
@@ -107,7 +108,7 @@
 
 
          <script src="../js/jquery-3.1.0.min.js" type="text/javascript"></script>
-         <script src="../js/jquery.dataTables.min.js"></script>
+     <script src="../js/jquery.dataTables.min.js"></script>
 
  	<script src="../js/bootstrap.min.js" type="text/javascript"></script>
  	<script src="../js/material.min.js" type="text/javascript"></script>
@@ -137,7 +138,7 @@
                  var dateFrom = deuxDates[0];
                  var dateTo = deuxDates[1];
 
-                 $("#vehicule").load("../controllers/getSelectVehicules.php?datefin=" + dateTo + "&datedebut=" + dateFrom);
+                 $("#vehicule").load("../controllers/getSelectVehicules.php?id=<?php echo $_GET['id']; ?>&datefin=" + dateTo + "&datedebut=" + dateFrom);
              });
 
              $(document).on("click", "#confirmer", function(e) {
@@ -161,10 +162,6 @@
                  $('.navbar-header a').html("Modification de réservation");
 
      	});
-
-
-
-
  	</script>
    <script src="../js/calendarModernizr.js"></script>
    <script>
