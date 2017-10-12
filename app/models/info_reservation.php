@@ -75,7 +75,7 @@ function setStatut($statut) {
 function getListReservations(){
     include $_SERVER["DOCUMENT_ROOT"] . '/app/app/database_connect.php';
 
-    $results = $conn->query('SELECT reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele WHERE reservation.statut = 1');
+    $results = $conn->query('SELECT reservation.statut, reservation.pk_reservation, marque.nom_marque, modele.nom_modele, utilisateur.nom, utilisateur.prenom, reservation.date_debut, reservation.date_fin, reservation.statut FROM `reservation` LEFT JOIN vehicule ON reservation.fk_vehicule = vehicule.pk_vehicule LEFT JOIN utilisateur ON reservation.fk_utilisateur = utilisateur.pk_utilisateur LEFT JOIN marque ON vehicule.fk_marque = marque.pk_marque LEFT JOIN modele ON vehicule.fk_modele = modele.pk_modele');
 
     $allreservation = array();
     while ($row = $results->fetch_assoc()) {
@@ -86,14 +86,15 @@ function getListReservations(){
             'nom' => $row['nom'],
             'prenom' => $row['prenom'],
             'date_debut' => $row['date_debut'],
-            'date_fin' => $row['date_fin']
+            'date_fin' => $row['date_fin'],
+            'statut' => $row['statut']
         );
     }
     $size= sizeof($allreservation);
     if($size != null){
         for($i=0;$i<$size;$i++){
             echo "<tr class=''>";
-            echo "<td>";
+            echo "<td class='hidden'>";
             echo $allreservation[$i]['pk_reservation'] . "</td>";
             echo "<td>";
             echo $allreservation[$i]['nom_marque'] . " ".$allreservation[$i]['nom_modele']."</td>";
@@ -103,7 +104,8 @@ function getListReservations(){
             echo $allreservation[$i]['date_debut'] . "</td>";
             echo "<td>";
             echo $allreservation[$i]['date_fin'] . "</td>";
-
+            echo "<td>";
+            echo $allreservation[$i]['statut'] . "</td>";
             echo "</tr>";
         }
     }

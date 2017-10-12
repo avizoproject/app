@@ -442,7 +442,7 @@ h2.title {
 .sidebar .sidebar-wrapper,
 .off-canvas-sidebar .sidebar-wrapper {
   position: relative;
-  height: calc(100vh - 75px);
+
   overflow: auto;
   width: 260px;
   z-index: 4;
@@ -729,7 +729,7 @@ h2.title {
 .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle, .open >
 .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:focus, .open >
 .navbar .navbar-nav > li > a.btn.btn-default.dropdown-toggle:hover {
-  background-color: #1785AC;
+  background-color: #00ABE3;
   color: #FFFFFF;
 }
 .btn:focus, .btn:active, .btn:hover, .btn.btn-default:focus, .btn.btn-default:active, .btn.btn-default:hover,
@@ -3687,6 +3687,9 @@ footer .btn {
 .card .table tr:first-child td {
   border-top: none;
 }
+
+
+
 .card [data-background-color="purple"] {
   background: linear-gradient(60deg, #ab47bc, #8e24aa);
   box-shadow: 0 12px 20px -10px rgba(156, 39, 176, 0.28), 0 4px 20px 0px rgba(0, 0, 0, 0.12), 0 7px 8px -5px rgba(156, 39, 176, 0.2);

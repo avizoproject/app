@@ -65,8 +65,12 @@
                                                      <script>
                                                          flatpickr(".selector", {});
                                                          document.getElementById("acquisition").flatpickr({
+
+
                                                              defaultDate: <?php $gReservation->getDatesReservation($_GET["id"]); ?>
                                                              mode: "range"
+
+
                                                          });
                                                      </script>
                                                  </div>
@@ -84,8 +88,10 @@
                                              </div>
 
                                          </div>
+
                                          <input type="submit" id="confirmer" class="btn pull-right" value="Confirmer">
                                          <input type="submit" id="supprimer" class="btn pull-right" value="Supprimer" style="margin-right: 10px;">
+                                         <input type="submit" id="cancel" class="btn pull-right" value="Annuler" style="margin-right: 10px;">
                                          <div class="clearfix"></div>
                                      </form>
                                  </div>
@@ -157,6 +163,11 @@
                  e.preventDefault();
                  location.href = "../controllers/controller_reservation.php?supp=1&id=<?php echo $_GET['id']; ?>";
              });
+
+            $(document).on("click", "#cancel", function(e) {
+                e.preventDefault();
+                location.href = "../views/reservation.php";
+            });
 
                  $('.navbar-header a').html("Modification de réservation");
 

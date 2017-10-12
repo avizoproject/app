@@ -145,7 +145,7 @@ AND v.fk_secteur = '" . $user_sector . "'");
 
 
 
-    echo "<option value=''>Sélectionnez un véhicule...</option>";
+
     while ($row = $results->fetch_assoc()) {
         echo "<option value=" . $row['pk_vehicule'] . ">" . $row['nom_marque'] . " " . $row['nom_modele'] . "</option>";
     }
