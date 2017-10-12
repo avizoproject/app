@@ -15,10 +15,10 @@ body {
   font-size: 1.6rem;
   font-family: "Source Sans Pro", sans-serif;
   color: #222222;
-  background-color: white;
+
 }
 
-a {
+.single-event a {
   color: #A2B9B2;
   text-decoration: none;
 }
@@ -107,6 +107,7 @@ Main Components
 }
 
 .cd-schedule .events {
+  float: right;
   position: relative;
   z-index: 1;
 }

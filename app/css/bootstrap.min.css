@@ -2376,7 +2376,7 @@ th {
 .table>colgroup+thead>tr:first-child>th,
 .table>thead:first-child>tr:first-child>td,
 .table>thead:first-child>tr:first-child>th {
-    border-top: 0
+    border-top: 1 px solid #DDDDDD;
 }
 .table>tbody+tbody {
     border-top: 2px solid #ddd
@@ -6654,6 +6654,11 @@ button.close {
 .margin-button{
     margin:5px;
 }
+
+.margin-button2{
+    margin-left:15px;
+}
+
 .pull-right {
     float: right!important
 }
